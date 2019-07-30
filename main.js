@@ -4,43 +4,88 @@ const util = require('util');
 
 Apify.main(async () => {
 
-    // Get queue and enqueue first url.
+    //GET QUEUE
     const requestQueue = await Apify.openRequestQueue();
-    await requestQueue.addRequest(new Apify.Request({ url: 'https://news.ycombinator.com/' }));
+    //FIRST QUEUE REQUEST
+    await requestQueue.addRequest(new Apify.Request
+        ({  url: 'https://www.visithoustontexas.com/events/',
+            userData: {
+                label: 'START'
+            }
+        }));
 
-    // Create crawler.
+    //CREATE CRAWLER
     const crawler = new Apify.PuppeteerCrawler({
         requestQueue,
 
-        // This page is executed for each request.
-        // If request failes then it's retried 3 times.
-        // Parameter page is Puppeteers page object with loaded page.
-        handlePageFunction: getEventData,
+        //EXECUTED FOR EACH REQUEST -- 3 RETRIES
+        handlePageFunction: pageFunction,
 
-        // If request failed 4 times then this function is executed.
+        //ERROR HANDLER AFTER 4 FAILURES
         handleFailedRequestFunction: async ({ request }) => {
             console.log(`Request ${request.url} failed 4 times`);
         },
     });
 
-    // Run crawler.
+    //RUN CRAWLER
     await crawler.run();
     
 });
 
 
+//EXECUTED FOR EACH REQUEST -- 3 RETRIES
+const pageFunction = async (context) => {
 
-const getEventData = async ({ page, request }) => {
+    const { request, page } = context;
 
-    // Function to get data from page
-    const title = await page.title();
-    const posts = await page.$$('.athing');
+    //EVENTS PAGINATING AND QUEUEING
+    if (request.userData.label === 'START') {
 
-    console.log(`Page ${request.url} succeeded and it has ${posts.length} posts.`);
+        console.log("HOME: EVENTS PAGE");
 
+        //UNDEFINED TIMEOUT
+        let timeout;
 
-    // Log data (util is a tool that nicely formats objects in the console)
-    console.log(util.inspect(title, false, null));
+        //UNIQUE SELECTOR TO PAGINATE HOUSTON EVENTS
+        const nextPageBtn = 'a.next';
+
+        //RUNS UNTIL waitFor THROWS ERROR (I.E. ONCE YOU'VE REACHED THE LAST PAGE)
+        while (true) {
+            console.log("WAITING FOR LINK TO NEXT PAGE");
+            try {
+                await page.waitFor(nextPageBtn, {timeout}); //DEFAULT 30 SEC. TIMER FOR FIRST PAGE LOAD
+                timeout = 2000; //2 SEC. TIMER FOR ITERATED PAGES
+            } catch (err) {
+                console.log("COULD NOT FIND LINK TO NEXT // THE END OF EVENTS");
+                //ERROR TO BE EXPECTED, PAGINATION END
+                break;
+            }
+            console.log("CLICKING TO NEXT PAGE");
+            await page.click(nextPageBtn);
+        }
+
+        //ENQUEUING NEW LINKS TO REQUESTQUEUE
+        const enqueued = await Apify.utils.enqueueLinks({
+            page,
+            requestQueue,
+            pseudoUrls: ['https://www.visithoustontexas.com/event/[.*]'],
+            transformRequestFunction: { userData: { label: 'DETAIL '} }
+        });
+        console.log(`ENQUERED ${enqueued.length} URLS.`)
+    }
+    
+    //SINGULAR EVENT SCRAPING
+    if (request.userData.label === 'DETAIL') {
+        const { url } = request;
+        const title = await page.title();
+        console.log(`DETAIL ${url}, & ${title}`);
+        // await page.waitFor(() => !!window.eventData, { timeout: 60000 }); 
+    }
+
+    // return {
+    //     url, 
+    //     title,
+    //     description,
+    //     date
+    // }
 }
-
-

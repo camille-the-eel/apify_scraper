@@ -5,6 +5,7 @@
 	"main": "main.js",
 	"dependencies": {
 		"apify": "^0.15.2",
+		"puppeteer": "^1.19.0",
 		"util": "^0.11.1"
 	},
 	"devDependencies": {},
