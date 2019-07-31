@@ -1,0 +1,21 @@
+{
+    "id": "Q9XTiqRSzOgsCnC",
+    "url": "https://www.visithoustontexas.com/events/?page=4",
+    "loadedUrl": "https://www.visithoustontexas.com/events/?page=4",
+    "uniqueKey": "https://www.visithoustontexas.com/events?page=4",
+    "method": "GET",
+    "payload": null,
+    "noRetry": false,
+    "retryCount": 3,
+    "errorMessages": [
+        "ApifyClientError: Parameter \"pseudoUrls\" of type Maybe Array must be provided\n    at exports.checkParamOrThrow (/Users/eel/Job_Challenges/apify_scraper/node_modules/apify-client/build/utils.js:222:15)\n    at Object.enqueueLinks (/Users/eel/Job_Challenges/apify_scraper/node_modules/apify/build/enqueue_links/enqueue_links.js:126:32)\n    at PuppeteerCrawler.pageFunction [as handlePageFunction] (/Users/eel/Job_Challenges/apify_scraper/main.js:50:48)\n    at PuppeteerCrawler._handleRequestFunction (/Users/eel/Job_Challenges/apify_scraper/node_modules/apify/build/crawlers/puppeteer_crawler.js:314:51)\n    at process._tickCallback (internal/process/next_tick.js:68:7)",
+        "ApifyClientError: Parameter \"pseudoUrls\" of type Maybe Array must be provided\n    at exports.checkParamOrThrow (/Users/eel/Job_Challenges/apify_scraper/node_modules/apify-client/build/utils.js:222:15)\n    at Object.enqueueLinks (/Users/eel/Job_Challenges/apify_scraper/node_modules/apify/build/enqueue_links/enqueue_links.js:126:32)\n    at PuppeteerCrawler.pageFunction [as handlePageFunction] (/Users/eel/Job_Challenges/apify_scraper/main.js:50:48)\n    at PuppeteerCrawler._handleRequestFunction (/Users/eel/Job_Challenges/apify_scraper/node_modules/apify/build/crawlers/puppeteer_crawler.js:314:51)\n    at process._tickCallback (internal/process/next_tick.js:68:7)",
+        "ApifyClientError: Parameter \"pseudoUrls\" of type Maybe Array must be provided\n    at exports.checkParamOrThrow (/Users/eel/Job_Challenges/apify_scraper/node_modules/apify-client/build/utils.js:222:15)\n    at Object.enqueueLinks (/Users/eel/Job_Challenges/apify_scraper/node_modules/apify/build/enqueue_links/enqueue_links.js:126:32)\n    at PuppeteerCrawler.pageFunction [as handlePageFunction] (/Users/eel/Job_Challenges/apify_scraper/main.js:50:48)\n    at PuppeteerCrawler._handleRequestFunction (/Users/eel/Job_Challenges/apify_scraper/node_modules/apify/build/crawlers/puppeteer_crawler.js:314:51)\n    at process._tickCallback (internal/process/next_tick.js:68:7)",
+        "ApifyClientError: Parameter \"pseudoUrls\" of type Maybe Array must be provided\n    at exports.checkParamOrThrow (/Users/eel/Job_Challenges/apify_scraper/node_modules/apify-client/build/utils.js:222:15)\n    at Object.enqueueLinks (/Users/eel/Job_Challenges/apify_scraper/node_modules/apify/build/enqueue_links/enqueue_links.js:126:32)\n    at PuppeteerCrawler.pageFunction [as handlePageFunction] (/Users/eel/Job_Challenges/apify_scraper/main.js:50:48)\n    at PuppeteerCrawler._handleRequestFunction (/Users/eel/Job_Challenges/apify_scraper/node_modules/apify/build/crawlers/puppeteer_crawler.js:314:51)\n    at process._tickCallback (internal/process/next_tick.js:68:7)"
+    ],
+    "headers": {},
+    "userData": {
+        "label": "START"
+    },
+    "handledAt": "2019-07-31T00:32:16.520Z"
+}
