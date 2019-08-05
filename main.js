@@ -7,7 +7,7 @@ Apify.main(async () => {
     const requestQueue = await Apify.openRequestQueue();
     //FIRST QUEUE REQUEST
     await requestQueue.addRequest(new Apify.Request
-        ({  url: 'https://www.visithoustontexas.com/events/?page=172',
+        ({  url: 'https://www.visithoustontexas.com/events/',
             userData: {
                 label: 'START'
             }
@@ -36,7 +36,6 @@ Apify.main(async () => {
             //RUNS UNTIL waitFor THROWS ERROR (I.E. ONCE YOU'VE REACHED THE LAST PAGE)
             while (true) {
                 try {
-                    console.log("WAITING FOR LINK TO NEXT PAGE");
                     await page.waitFor(nextPageBtn, {timeout}); //DEFAULT 30 SEC. TIMER FOR FIRST PAGE LOAD
                     //ENQUEUING NEW LINKS TO REQUESTQUEUE
                     const enqueued = await Apify.utils.enqueueLinks({
@@ -45,13 +44,11 @@ Apify.main(async () => {
                         pseudoUrls: ['https://www.visithoustontexas.com/event/[.*]']
                     });
                     console.log(`ENQUERED ${enqueued.length} URLS.`)
-                    // timeout = 2000; //2 SEC. TIMER FOR ITERATED PAGES
                 } catch (err) {
                     console.log("COULD NOT FIND LINK TO NEXT // THE END OF EVENTS");
                     //ERROR TO BE EXPECTED, PAGINATION END
                     break;
                 }
-                console.log("CLICKING TO NEXT PAGE");
                 await page.click(nextPageBtn);
             }
         }
